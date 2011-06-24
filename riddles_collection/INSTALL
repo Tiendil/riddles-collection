@@ -1,0 +1,16 @@
+
+- install postgres 
+  - setup postgres-server then read http://www.redhat.com/support/resources/faqs/RH-apache-FAQ/postgres/postgres-install.html
+  - create user riddles/riddles
+- install pip-python (python-pip)
+- install django
+  - install south
+  - install jinja2
+- instll nodejs (http://nodejs.org/)
+- install npm (http://npmjs.org/)
+- install less (http://lesscss.org/)
+- install apache
+  - install mod_wsgi
+  - configure django & apache
+- install django-next
+- install riddles

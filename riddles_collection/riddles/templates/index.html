@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block page_keywords %}{{ super() }} {{category.caption}} {% endblock %}
+{% block page_description %} {{ category.description }} {% endblock %}
+
+{% block title%}
+{% if page_number == 1 %}
+{{ category.caption }}. {{ super() }} 
+{% else %}
+Страница {{ page_number }}. {{ category.caption }}. {{ super() }}
+{% endif %}
+{% endblock %}
+
+{% macro paginator(page_number, total_pages, classes="") %}
+{% set pages = paginator_pages(page_number, total_pages) %}
+
+<div class="paginator {{ classes }}">
+  Страницы:
+  <ol>
+    {% for page in pages %}
+
+    {% if page == page_number %}
+    <li>{{ page }}</li>    
+    {% elif page %}
+    <li><a href="{{ url('riddles:', category.url, page) }}">{{ page }}</a></li>
+    {% else %}&hellip;{% endif %}
+
+    {% endfor %}
+  </ol>
+</div>
+{% endmacro %}
+
+{% block content %}
+
+<div id="category-content" itemscope itemtype="http://schema.org/ItemList">
+
+  <div class="category-header">
+    <h2 itemprop="headline">{{ category.caption }}</h2>
+    <div itemprop="description"><p>{{ category.description }}</p></div>
+  </div>
+
+  <meta itemprop="url" content="{{ url('riddles:', category.url, 1) }}" />
+  <meta itemprop="about" content="{{ category.caption }}" />
+  <meta itemprop="name" content="{{ category.caption }}" />
+  <meta itemprop="genre" content="загадки" />
+  <meta itemprop="isFamilyFriendly" content="True" />
+
+  {{ paginator(page_number, pages_count, "top") }}
+
+  <dl class="riddles-list">
+    {% for riddle in riddles %}
+
+    <div itemscope itemtype="http://schema.org/CreativeWork" itemprop="itemListElement" >
+      <a itemprop="url"
+         href="{{ url('riddles:', category.url, page_number) }}#riddle-{{ riddle.id }}" 
+         id="riddle-{{ riddle.id }}"
+         rel="bookmark">
+        #{{ loop.index + offset}}
+      </a>
+      <meta itemprop="genre" content="загадки" />
+      <meta itemprop="isFamilyFriendly" content="True" />
+      <meta itemprop="keywords" content="загадка, {{ riddle.answer }}" />
+      <div class="riddle">
+        <dd class="text-body" itemprop="description">{{ riddle.text|endl2br }}</dd>
+        <span class="answer" >
+          <span class="answer-caption">Ответ:</span> <dt itemprop="about">{{ riddle.answer }}</dt>
+        </span>
+      </div>
+    </div>
+
+    {% endfor %}
+  </dl>
+
+  {{ paginator(page_number, pages_count, "bottom") }}
+
+</div>
+
+{% endblock %}

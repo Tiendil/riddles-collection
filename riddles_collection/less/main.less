@@ -1,0 +1,192 @@
+
+@border_color: #0066FF;
+@background_color: #EEEEFF;
+
+h1, h2 {
+    font-family: 'Georgia','Times','Times New Roman',serif;
+    font-size: 21pt;
+}
+
+h1 {
+    font-size: 25pt;    
+}
+
+a {
+    color: #3333EE;
+    text-decoration: none;
+
+    &:hover {
+        color: #6666FF;
+        text-decoration: underline;
+    }
+    &:visited {
+        color: #551A8B;
+    }
+}
+
+ol, ul, menu, dl {
+    margin: 0;
+    padding: 0.5em 0.5em;
+}
+
+dl {
+    dd, dt {
+        margin: 0;
+        padding: 0;
+    }
+
+    dt {
+        display: inline-block;
+    }
+}
+
+p {
+    text-indent: 2em;
+}
+
+
+header {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    border-top: 1px dotted @border_color;
+    padding: 1em;
+}
+
+body {
+    margin: 0;
+}
+
+#top-line {
+    background-color: @background_color;
+    border-bottom: 1px dotted @border_color;
+    font-size: 9pt;
+    line-height: 1.5;
+    margin: 0;
+    padding: 2px 30px;
+    width: auto;
+}
+
+#body-content {
+    margin: 20px auto;
+    width: 740px;
+    font-family: 'Lucida Grande','Tahoma',sans-serif;
+    font-size: 11pt;
+}
+
+
+#category-menu {
+    display: inline-block;
+    width: 130px;
+    vertical-align: top;
+
+    background-color: @background_color;
+    border-left: 1px dotted @border_color;
+
+    h2 {
+        margin: 0;
+        margin-left: 0.3em;
+        margin-top: 0.5em;
+        margin-bottom: 0.25em;
+        font-size: 12pt;
+        border-bottom: 1px dotted @border_color;
+    }
+
+    menu {
+
+        list-style-type: none;
+        font-size: 9pt;
+        line-height: 1.5;
+
+        li.other {
+            border-top: 1px dotted @border_color;
+        }
+    }
+}
+
+#index-content {
+    display: inline-block;
+    width: 550px;
+
+    p {
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
+
+
+#category-content {
+    display: inline-block;
+    width: 550px;
+
+    .category-header {
+        
+        margin: 0.5em;
+        margin-top: 0;
+
+        h2 {
+            margin: 0;
+            margin-bottom: 0.25em;
+        }
+    }
+
+    .riddles-list {
+        list-style-type: none;
+
+        .riddle {    
+            background-color: @background_color;
+
+            font-family: 'Monaco','Courier New',monospace;
+            font-size: 10pt;
+            font-weight: normal;
+
+            margin-top: 0em;
+            margin-bottom: 1em;
+            padding: 0.25em;
+            border: 1px dotted @border_color;
+
+            .text-body{
+                padding: 0.25em;
+                border-bottom: 1px dotted @border_color;
+            }
+            .answer{
+                padding: 0.25em;
+            }
+
+            .answer-caption{
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.paginator {
+
+    list-style-type: none;
+    margin-left: 0.5em;   
+    color: #000000;
+    font-weight: bold;
+
+    ol {
+        display: inline-block;
+    }
+
+    li {
+        display: inline-block;
+
+        a {
+            font-weight: normal;
+        }
+    }
+
+    &.top {
+        /* padding-top: 0; */
+    }
+
+    &.bottom {
+        padding-bottom: 0;
+    }
+}
