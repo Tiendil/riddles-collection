@@ -63,10 +63,12 @@ body {
   display: inline-block;
   width: 130px;
   vertical-align: top;
+}
+#category-menu #category-menu-wrapper {
   background-color: #eeeeff;
   border-left: 1px dotted #0066ff;
 }
-#category-menu h2 {
+#category-menu #category-menu-wrapper h2 {
   margin: 0;
   margin-left: 0.3em;
   margin-top: 0.5em;
@@ -74,12 +76,12 @@ body {
   font-size: 12pt;
   border-bottom: 1px dotted #0066ff;
 }
-#category-menu menu {
+#category-menu #category-menu-wrapper menu {
   list-style-type: none;
   font-size: 9pt;
   line-height: 1.5;
 }
-#category-menu menu li.other {
+#category-menu #category-menu-wrapper menu li.other {
   border-top: 1px dotted #0066ff;
 }
 #index-content {

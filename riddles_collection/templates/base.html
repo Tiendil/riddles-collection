@@ -25,6 +25,8 @@
     <noscript><img src="http://counter.rambler.ru/top100.cnt?1877122" alt="" width="1" height="1" border="0"/></noscript>
     <!-- end of Top100 code -->
 
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
   </head>
   
   <body>
@@ -36,34 +38,44 @@
     <div id="body-content">
       
       <header>
-        <h1>Собрание загадок обо всём на свете</h1>
+        <h1>
+          Собрание загадок обо всём на свете
+        </h1>
       </header>
       
       {% block body_content %}
       <div class="content">
 
         <div id="category-menu">
-          <h2>Категории</h2>
-          <menu>
+          <div id="category-menu-wrapper">
+            <h2>Категории</h2>
+            <menu>
 
-            {% for category in categories %}
-            {% if category.url != 'other' %}
-            <li>
-              <a href="{{ url('riddles:', category.url, 1) }}">{{ category.name }}</a>
-            </li>
-            {% endif %}
-            {% endfor %}
+              {% for category in categories %}
+              {% if category.url != 'other' %}
+              <li>
+                <a href="{{ url('riddles:', category.url, 1) }}">{{ category.name }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
 
-            {% for category in categories %}
-            {% if category.url == 'other' %}
-            <li class="other">
-              <a href="{{ url('riddles:', category.url, 1) }}">{{ category.name }}</a>
-            </li>
-            {% endif %}
-            {% endfor %}
-
-          </menu>
+              {% for category in categories %}
+              {% if category.url == 'other' %}
+              <li class="other">
+                <a href="{{ url('riddles:', category.url, 1) }}">{{ category.name }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </menu>
+          </div>
+          <br/>
+          <div id="buttons-wrapper">
+            <g:plusone></g:plusone>
+            <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="ru"></a>
+            <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="http://zagadki.org/" send="false" layout="button_count" width="130" show_faces="true" font=""></fb:like>
+          </div>
         </div>
+        
         {% block content %}
         {% endblock %}
 
