@@ -10,9 +10,6 @@
     <title>{% block title%}Каталог загадок{% endblock %}</title>
 
     <link rel="stylesheet" type="text/css" href="{{ LESS_CSS_URL }}main.css" />
-    <link rel="stylesheet" type="text/css" href="{{ LESS_CSS_URL }}javascript.css" />
-
-    <script src="{{ STATIC_URL }}plugins/jquery/jquery-1.5.js" type="text/javascript"></script>
 
     {% if settings.DEBUG %}
     <script src="{{ STATIC_URL }}common/debug.js" type="text/javascript"></script>
@@ -39,6 +36,7 @@
       
       <header>
         <h1>
+          <img src="{{ STATIC_URL}}logo.png">
           Собрание загадок обо всём на свете
         </h1>
       </header>
@@ -84,12 +82,6 @@
           <a href="http://top100.rambler.ru/home?id=1877122" target="_blank">
             <img src="http://top100-images.rambler.ru/top100/w2.gif" alt="Rambler's Top100" width="88" height="31" border="0" /></a>
           <!-- end of Top100 logo -->
-
-          <!-- BEGIN Rating All.BY CODE - ALTERNATING THIS CODE WILL CAUSE TERMINATION ACCOUNT-->
-          <A HREF="http://www.all.by/">
-            <IMG SRC="http://www.all.by/cgi-bin/rating.cgi?id=10073278&amp;ni=2" BORDER="0" WIDTH="88" HEIGHT="31" ALT="Rating All.BY"/>
-          </A>
-          <!-- END Rating All.BY CODE-->
 
           <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
