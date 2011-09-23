@@ -30,6 +30,24 @@
 </nav>
 {% endmacro %}
 
+{% block head%}
+
+{% if page_number == 1 and pages_count > 1 %}
+<link rel="next" href="{{ url('riddles:', category.url, page_number+1) }}" />
+{% endif %}
+
+{% if page_number != 1 and pages_count == page_number %}
+<link rel="previous" href="{{ url('riddles:', category.url, page_number-1) }}" />
+{% endif %}
+
+{% if page_number != 1 and pages_count != page_number %}
+<link rel="previous" href="{{ url('riddles:', category.url, page_number-1) }}" />
+<link rel="next" href="{{ url('riddles:', category.url, page_number+1) }}" />
+{% endif %}
+
+
+{% endblock %}
+
 {% block content %}
 
 <div id="category-content" itemscope itemtype="http://schema.org/ItemList">
