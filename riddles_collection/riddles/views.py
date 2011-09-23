@@ -44,4 +44,6 @@ class RiddlesResource(BaseResource):
                               'pages_count': pages_count,
                               'category': self.category,
                               'RIDDLES_ON_PAGE': RIDDLES_ON_PAGE,
+                              'riddles_from': (self.page - 1) * RIDDLES_ON_PAGE + 1,
+                              'riddles_to': (self.page - 1) * RIDDLES_ON_PAGE + len(riddles),
                               'total_count': total_count} )

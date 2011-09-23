@@ -7,7 +7,7 @@
 {% if page_number == 1 %}
 {{ category.description }} 
 {% else %}
-{{ category.caption }} с {{ (page_number-1) * RIDDLES_ON_PAGE + 1 }} по {{ page_number*RIDDLES_ON_PAGE}}.
+{{ category.caption }} с {{ riddles_from }} по {{ riddles_to }}.
 {% endif %}
 
 {% endblock %}
@@ -23,6 +23,7 @@
 {% macro paginator(page_number, total_pages, classes="") %}
 {% set pages = paginator_pages(page_number, total_pages) %}
 
+{% if total_pages > 1 %}
 <nav class="paginator {{ classes }}">
   Страницы:
   <ol>
@@ -37,6 +38,8 @@
     {% endfor %}
   </ol>
 </nav>
+{% endif %}
+
 {% endmacro %}
 
 {% block head%}
@@ -63,10 +66,10 @@
 
   <div class="category-header">
     <h2 itemprop="headline">
-      {{ category.caption }} <span class="slice">(с {{ (page_number-1) * RIDDLES_ON_PAGE + 1 }} по {{ page_number*RIDDLES_ON_PAGE}})</span>
+      {{ category.caption }} <span class="slice">(с {{ riddles_from }} по {{ riddles_to }})</span>
     </h2>
     {% if page_number == 1 %}
-    {{ category.description }}
+    <div itemprop="description"><p>{{ category.description }}</p></div>
     {% endif %}
   </div>
 
