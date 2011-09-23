@@ -23,26 +23,34 @@
 {% macro paginator(page_number, total_pages, classes="") %}
 {% set pages = paginator_pages(page_number, total_pages) %}
 
-{% if total_pages > 1 %}
-<nav class="paginator {{ classes }}">
-  Страницы:
-  <ol>
-    {% for page in pages %}
+<div class="paginator-wrapper">
+  {% if total_pages > 1 %}
+  <nav class="paginator {{ classes }}">
+    Страницы:
+    <ol>
+      {% for page in pages %}
 
-    {% if page == page_number %}
-    <li>{{ page }}</li>    
-    {% elif page %}
-    <li><a href="{{ url('riddles:', category.url, page) }}">{{ page }}</a></li>
-    {% else %}&hellip;{% endif %}
+      {% if page == page_number %}
+      <li>{{ page }}</li>    
+      {% elif page %}
+      <li><a href="{{ url('riddles:', category.url, page) }}">{{ page }}</a></li>
+      {% else %}&hellip;{% endif %}
 
-    {% endfor %}
-  </ol>
-</nav>
-{% endif %}
+      {% endfor %}
+    </ol>
+  </nav>
+  {% endif %}
+
+  <div class="show-hide-answers pgf-show-hide-answers">
+    <a href="#" class="pgf-hide-answers pgf-hidden">скрыть ответы</span>
+    <a href="#" class="pgf-show-answers pgf-hidden">показать ответы</span>
+  </div>
+</div>
 
 {% endmacro %}
 
 {% block head%}
+{{ super() }}
 
 {% if page_number == 1 and pages_count > 1 %}
 <link rel="next" href="{{ url('riddles:', category.url, page_number+1) }}" />
@@ -57,6 +65,56 @@
 <link rel="next" href="{{ url('riddles:', category.url, page_number+1) }}" />
 {% endif %}
 
+<script>
+    jQuery(document).ready(function(){
+        
+        var showAnswerLink = jQuery('.pgf-show-answers');
+        var hideAnswerLink = jQuery('.pgf-hide-answers');
+
+        var answers = jQuery('.pgf-answer-wrapper');
+
+        function ChangeAnswersVisibility(show_answers) {
+            if (show_answers == 'show') {
+                showAnswerLink.toggleClass('pgf-hidden', true);
+                hideAnswerLink.toggleClass('pgf-hidden', false);
+                jQuery('.pgf-answer', answers).toggleClass('pgf-hidden', false);
+                jQuery('.pgf-answer-show', answers).toggleClass('pgf-hidden', true);
+            }
+            else {
+                showAnswerLink.toggleClass('pgf-hidden', false);
+                hideAnswerLink.toggleClass('pgf-hidden', true);
+                jQuery('.pgf-answer', answers).toggleClass('pgf-hidden', true);
+                jQuery('.pgf-answer-show', answers).toggleClass('pgf-hidden', false);
+            }
+        }
+
+        var showAnswerState = jQuery.cookie('show_answers');
+        if (!showAnswerState) {
+            showAnswerState = 'show';
+        }
+
+        ChangeAnswersVisibility(showAnswerState);
+
+        showAnswerLink.click(function(e){
+            ChangeAnswersVisibility('show');
+            jQuery.cookie('show_answers', 'show', { path: '/' });
+            e.preventDefault();
+        });
+
+        hideAnswerLink.click(function(e){
+            ChangeAnswersVisibility('hide');
+            jQuery.cookie('show_answers', 'hide', { path: '/' });
+            e.preventDefault();
+        });
+
+        answers.click(function(e){
+            var el = jQuery(this);
+
+            jQuery('.pgf-answer', el).toggleClass('pgf-hidden', false);
+            jQuery('.pgf-answer-show', el).toggleClass('pgf-hidden', true);
+        });
+    });
+</script>
 
 {% endblock %}
 
@@ -99,7 +157,11 @@
       <div class="riddle">
         <dd class="text-body" itemprop="description">{{ riddle.text|endl2br }}</dd>
         <span class="answer" >
-          <span class="answer-caption">Ответ:</span> <dt itemprop="about">{{ riddle.answer }}</dt>
+          <span class="answer-caption">Ответ:</span> 
+          <span class="pgf-answer-wrapper">
+            <dt itemprop="about" class="pgf-answer">{{ riddle.answer }}</dt> 
+            <a href="#" class="pgf-answer-show pgf-hidden">ответ на загадку</a>
+          </span>
         </span>
       </div>
     </div>

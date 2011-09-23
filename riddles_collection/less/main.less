@@ -184,30 +184,46 @@ body {
     }
 }
 
-.paginator {
+.paginator-wrapper {
 
-    list-style-type: none;
-    margin-left: 0.5em;   
-    color: #000000;
-    font-weight: bold;
+    height: 1.5em;
 
-    ol {
-        display: inline-block;
-    }
+    .paginator {
 
-    li {
+        list-style-type: none;
+        margin-left: 0.5em;   
+        color: #000000;
+        font-weight: bold;
         display: inline-block;
 
-        a {
-            font-weight: normal;
+        ol {
+            display: inline-block;
+            padding-top: 0;
+            
+            li {
+                display: inline-block;
+                
+                a {
+                    font-weight: normal;
+                }
+            }
+        }
+
+        &.top {
+        }
+
+        &.bottom {
+            padding-bottom: 0;
         }
     }
 
-    &.top {
-        padding-bottom: 0.5em;
+    .show-hide-answers {
+        float: right;
+        display: inline-block;
     }
 
-    &.bottom {
-        padding-bottom: 0;
-    }
+}
+
+.pgf-hidden {
+    display: none;
 }
