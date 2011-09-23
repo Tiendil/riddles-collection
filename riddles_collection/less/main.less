@@ -131,15 +131,27 @@ body {
         
         margin: 0.5em;
         margin-top: 0;
+        margin-bottom: 0;
 
         h2 {
             margin: 0;
-            margin-bottom: 0.25em;
+
+            .slice {
+                font-size: 14pt;
+            }
         }
     }
 
     .riddles-list {
         list-style-type: none;
+        margin-top: 0;
+        padding-top: 0;
+
+        .riddle-link {
+            font-size: 10pt;
+            margin-bottom: 0;
+            margin-top: 0;
+        }
 
         .riddle {    
             background-color: @background_color;
@@ -188,7 +200,7 @@ body {
     }
 
     &.top {
-        /* padding-top: 0; */
+        padding-bottom: 0.5em;
     }
 
     &.bottom {

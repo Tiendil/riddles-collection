@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
 {% block page_keywords %}{{ super() }} {{category.caption}} {% endblock %}
-{% block page_description %} {{ category.description }} {% endblock %}
+
+{% block page_description %} 
+
+{% if page_number == 1 %}
+{{ category.description }} 
+{% else %}
+{{ category.caption }} с {{ (page_number-1) * RIDDLES_ON_PAGE + 1 }} по {{ page_number*RIDDLES_ON_PAGE}}.
+{% endif %}
+
+{% endblock %}
 
 {% block title%}
 {% if page_number == 1 %}
 {{ category.caption }}. {{ super() }} 
 {% else %}
-Страница {{ page_number }}. {{ category.caption }}. {{ super() }}
+{{ category.caption }}. Страница {{ page_number }}. {{ super() }}
 {% endif %}
 {% endblock %}
 
@@ -53,8 +62,12 @@
 <div id="category-content" itemscope itemtype="http://schema.org/ItemList">
 
   <div class="category-header">
-    <h2 itemprop="headline">{{ category.caption }}</h2>
-    <div itemprop="description"><p>{{ category.description }}</p></div>
+    <h2 itemprop="headline">
+      {{ category.caption }} <span class="slice">(с {{ (page_number-1) * RIDDLES_ON_PAGE + 1 }} по {{ page_number*RIDDLES_ON_PAGE}})</span>
+    </h2>
+    {% if page_number == 1 %}
+    {{ category.description }}
+    {% endif %}
   </div>
 
   <meta itemprop="url" content="{{ url('riddles:', category.url, 1) }}" />
@@ -69,12 +82,14 @@
     {% for riddle in riddles %}
 
     <div itemscope itemtype="http://schema.org/CreativeWork" itemprop="itemListElement" >
-      <a itemprop="url"
-         href="{{ url('riddles:', category.url, page_number) }}#riddle-{{ riddle.id }}" 
-         id="riddle-{{ riddle.id }}"
-         rel="bookmark">
-        #{{ loop.index + offset}}
-      </a>
+      <h3 class="riddle-link">
+        <a itemprop="url"
+           href="{{ url('riddles:', category.url, page_number) }}#riddle-{{ riddle.id }}" 
+           id="riddle-{{ riddle.id }}"
+           rel="bookmark">
+          загадка №{{ loop.index + offset}}
+        </a>
+      </h3>
       <meta itemprop="genre" content="загадки" />
       <meta itemprop="isFamilyFriendly" content="True" />
       <meta itemprop="keywords" content="загадка, {{ riddle.answer }}" />

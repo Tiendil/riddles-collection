@@ -3,7 +3,7 @@
 from django_next.jinja2.decorators import jinjaglobal
 
 @jinjaglobal
-def paginator_pages(page_number, total_pages, radius=2):
+def paginator_pages(page_number, total_pages, radius=10):
 
     pages = []
 
