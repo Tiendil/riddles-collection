@@ -36,7 +36,7 @@
       
       <header>
         <h1>
-          <img src="{{ STATIC_URL}}logo.png">
+          <img src="{{ STATIC_URL}}logo.png"/>
           Собрание загадок обо всём на свете
         </h1>
       </header>
@@ -45,9 +45,9 @@
       <div class="content">
 
         <div id="category-menu">
-          <div id="category-menu-wrapper">
+          <nav id="category-menu-wrapper">
             <h2>Категории</h2>
-            <menu>
+            <ul>
 
               {% for category in categories %}
               {% if category.url != 'other' %}
@@ -64,8 +64,8 @@
               </li>
               {% endif %}
               {% endfor %}
-            </menu>
-          </div>
+            </ul>
+          </nav>
           <br/>
           <div id="buttons-wrapper">
             <g:plusone></g:plusone>

@@ -14,7 +14,7 @@
 {% macro paginator(page_number, total_pages, classes="") %}
 {% set pages = paginator_pages(page_number, total_pages) %}
 
-<div class="paginator {{ classes }}">
+<nav class="paginator {{ classes }}">
   Страницы:
   <ol>
     {% for page in pages %}
@@ -27,7 +27,7 @@
 
     {% endfor %}
   </ol>
-</div>
+</nav>
 {% endmacro %}
 
 {% block content %}
