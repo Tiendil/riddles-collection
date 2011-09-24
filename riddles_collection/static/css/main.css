@@ -66,23 +66,26 @@ body {
 }
 #category-menu #category-menu-wrapper {
   background-color: #eeeeff;
-  border-left: 1px dotted #0066ff;
+  border-left: 1px solid #0066ff;
+  border-radius: 7px;
 }
 #category-menu #category-menu-wrapper h2 {
   margin: 0;
-  margin-left: 0.3em;
-  margin-top: 0.5em;
+  margin-left: 7px;
+  padding-top: 7px;
   margin-bottom: 0.25em;
   font-size: 12pt;
   border-bottom: 1px dotted #0066ff;
 }
-#category-menu #category-menu-wrapper menu {
+#category-menu #category-menu-wrapper ul {
+  margin-top: 0;
+  padding-top: 0;
   list-style-type: none;
   font-size: 9pt;
   line-height: 1.5;
 }
-#category-menu #category-menu-wrapper menu li.other {
-  border-top: 1px dotted #0066ff;
+#category-menu #category-menu-wrapper ul li.other {
+  border-top: 1px solid #0066ff;
 }
 #index-content {
   display: inline-block;
@@ -98,15 +101,27 @@ body {
 #category-content .category-header {
   margin: 0.5em;
   margin-top: 0;
+  margin-bottom: 0;
 }
 #category-content .category-header h2 {
   margin: 0;
-  margin-bottom: 0.25em;
+}
+#category-content .category-header h2 .slice {
+  font-size: 14pt;
 }
 #category-content .riddles-list {
   list-style-type: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+#category-content .riddles-list .riddle-link {
+  font-size: 10pt;
+  margin-left: 7px;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 #category-content .riddles-list .riddle {
+  border-radius: 7px;
   background-color: #eeeeff;
   font-family: 'Monaco', 'Courier New', monospace;
   font-size: 10pt;
@@ -114,7 +129,7 @@ body {
   margin-top: 0em;
   margin-bottom: 1em;
   padding: 0.25em;
-  border: 1px dotted #0066ff;
+  border: 1px solid #0066ff;
 }
 #category-content .riddles-list .riddle .text-body {
   padding: 0.25em;
@@ -126,25 +141,33 @@ body {
 #category-content .riddles-list .riddle .answer-caption {
   font-weight: bold;
 }
-.paginator {
+.paginator-wrapper {
+  height: 1.5em;
+}
+.paginator-wrapper .paginator {
   list-style-type: none;
   margin-left: 0.5em;
   color: #000000;
   font-weight: bold;
-}
-.paginator ol {
   display: inline-block;
 }
-.paginator li {
+.paginator-wrapper .paginator ol {
+  display: inline-block;
+  padding-top: 0;
+}
+.paginator-wrapper .paginator ol li {
   display: inline-block;
 }
-.paginator li a {
+.paginator-wrapper .paginator ol li a {
   font-weight: normal;
 }
-.paginator.top {
-  /* padding-top: 0; */
-
-}
-.paginator.bottom {
+.paginator-wrapper .paginator.bottom {
   padding-bottom: 0;
+}
+.paginator-wrapper .show-hide-answers {
+  float: right;
+  display: inline-block;
+}
+.pgf-hidden {
+  display: none;
 }
