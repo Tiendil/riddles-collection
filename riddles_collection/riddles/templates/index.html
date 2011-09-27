@@ -8,6 +8,7 @@
 {{ category.description }} 
 {% else %}
 {{ category.caption }} с {{ riddles_from }} по {{ riddles_to }}.
+{{ category.description }} 
 {% endif %}
 
 {% endblock %}
@@ -126,9 +127,7 @@
     <h2 itemprop="headline">
       {{ category.caption }} <span class="slice">(с {{ riddles_from }} по {{ riddles_to }})</span>
     </h2>
-    {% if page_number == 1 %}
     <div itemprop="description"><p>{{ category.description }}</p></div>
-    {% endif %}
   </div>
 
   <meta itemprop="url" content="{{ url('riddles:', category.url, 1) }}" />
