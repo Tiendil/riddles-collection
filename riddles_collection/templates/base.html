@@ -10,7 +10,7 @@
     <meta name="keywords" content="{% block page_keywords %}загака, загадки, детские загадки, загадки для детей, ответы на загадки, {% endblock %}"/>
     <meta name="description" content="{% block page_description %}Каталог загадок{% endblock %}"/>
 
-    <title>{% block title%}Каталог загадок{% endblock %}</title>
+    <title>{% block title%}Загадки для детей{% endblock %}</title>
 
     <link rel="stylesheet" type="text/css" href="{{ LESS_CSS_URL }}main.css" />
 
@@ -24,7 +24,9 @@
     <noscript><img src="http://counter.rambler.ru/top100.cnt?1877122" alt="" width="1" height="1" border="0"/></noscript>
     <!-- end of Top100 code -->
 
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+      {lang: 'ru'}
+    </script>
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
   </head>
   
@@ -38,8 +40,8 @@
       
       <header>
         <h1>
-          <img src="{{ STATIC_URL}}logo.png"/>
-          Собрание загадок обо всём на свете
+          <img src="{{ STATIC_URL}}logo.png" alt="книга загадок и ответов на загадки"/>
+          Детские загадки обо всём на свете
         </h1>
       </header>
       
@@ -70,7 +72,7 @@
           </nav>
           <br/>
           <div id="buttons-wrapper">
-            <g:plusone></g:plusone>
+            <div class="g-plusone" data-annotation="none" data-href="http://zagadki.org"></div>
             <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="ru"></a>
             <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="http://zagadki.org/" send="false" layout="button_count" width="130" show_faces="true" font=""></fb:like>
           </div>
