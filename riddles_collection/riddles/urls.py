@@ -1,9 +1,6 @@
 
-from django_next.views.dispatcher import resource_patterns
+from dext.views import resource_patterns
 
-from .views import RiddlesResource
+from riddles.views import RiddlesResource
 
 urlpatterns = resource_patterns(RiddlesResource)
-
-
-

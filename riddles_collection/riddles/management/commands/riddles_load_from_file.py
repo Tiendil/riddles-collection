@@ -3,7 +3,7 @@ import re
 from django.core.management.base import BaseCommand
 from optparse import make_option
 
-from django_next.utils.decorators import nested_commit_on_success
+from dext.utils.decorators import nested_commit_on_success
 
 from ...models import Riddle, Category
 
@@ -38,7 +38,7 @@ class Command(BaseCommand):
 
         for riddle in riddles:
 
-            match = riddle_pattern.match(riddle) 
+            match = riddle_pattern.match(riddle)
 
             if match is None:
                 print riddle
@@ -54,6 +54,3 @@ class Command(BaseCommand):
                                   category=category_object)
 
         print '%i riddles added' % len(riddles)
-
-
-        

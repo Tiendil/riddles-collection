@@ -1,14 +1,15 @@
-# -*- coding: utf-8 -*-
-from django_next.views.resources import BaseResource, handler
+# coding: utf-8
+
+from dext.views import BaseResource, handler
 
 from .models import Riddle, Category
 
 class RiddlesResource(BaseResource):
 
-    def __init__(self, request, category_url=None, page=None, *args, **kwargs):
+    def initialize(self, category_url=None, page=None):
+        super(RiddlesResource, self).initialize()
         self.category_url = category_url
         self.page = int(page) if page else None
-        super(RiddlesResource, self).__init__(request, *args, **kwargs)
 
     @property
     def category(self):
@@ -18,7 +19,7 @@ class RiddlesResource(BaseResource):
                 self._category = Category.objects.get(url=self.category_url)
             except Category.DoesNotExist:
                 pass
-                
+
         return self._category
 
     @handler('#category_url', '#page', '', method='get')
@@ -33,10 +34,10 @@ class RiddlesResource(BaseResource):
 
         riddles = list(riddles_query[offset: offset + RIDDLES_ON_PAGE])
 
-        pages_count = total_count / RIDDLES_ON_PAGE 
+        pages_count = total_count / RIDDLES_ON_PAGE
         if total_count % RIDDLES_ON_PAGE:
             pages_count += 1
-        
+
         return self.template('riddles/index.html',
                              {'riddles': riddles,
                               'offset': offset,

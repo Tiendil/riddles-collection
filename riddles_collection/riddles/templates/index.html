@@ -2,20 +2,20 @@
 
 {% block page_keywords %}{{ super() }} {{category.caption}} {% endblock %}
 
-{% block page_description %} 
+{% block page_description %}
 
 {% if page_number == 1 %}
-{{ category.description }} 
+{{ category.description }}
 {% else %}
 {{ category.caption }} с {{ riddles_from }} по {{ riddles_to }}.
-{{ category.description }} 
+{{ category.description }}
 {% endif %}
 
 {% endblock %}
 
 {% block title%}
 {% if page_number == 1 %}
-{{ category.caption }}. {{ super() }} 
+{{ category.caption }}. {{ super() }}
 {% else %}
 {{ category.caption }}. Страница {{ page_number }}. {{ super() }}
 {% endif %}
@@ -24,29 +24,16 @@
 {% macro paginator(page_number, total_pages, classes="") %}
 {% set pages = paginator_pages(page_number, total_pages) %}
 
-<div class="paginator-wrapper">
-  {% if total_pages > 1 %}
-  <nav class="paginator {{ classes }}">
-    Страницы:
-    <ol>
+{% if total_pages > 1 %}
+<div class="pagination pagination-small">
+    <ul>
       {% for page in pages %}
-
-      {% if page == page_number %}
-      <li>{{ page }}</li>    
-      {% elif page %}
-      <li><a href="{{ url('riddles:', category.url, page) }}">{{ page }}</a></li>
-      {% else %}&hellip;{% endif %}
-
+      <li class="{% if page == page_number %}active{% endif %}"><a href="{{ url('riddles:', category.url, page) }}">{{ page }}</a></li>
       {% endfor %}
-    </ol>
-  </nav>
-  {% endif %}
-
-  <div class="show-hide-answers pgf-show-hide-answers">
-    <a href="#" class="pgf-hide-answers pgf-hidden">скрыть ответы</span>
-    <a href="#" class="pgf-show-answers pgf-hidden">показать ответы</span>
-  </div>
+    </ul>
 </div>
+
+{% endif %}
 
 {% endmacro %}
 
@@ -68,7 +55,7 @@
 
 <script>
     jQuery(document).ready(function(){
-        
+
         var showAnswerLink = jQuery('.pgf-show-answers');
         var hideAnswerLink = jQuery('.pgf-hide-answers');
 
@@ -76,14 +63,14 @@
 
         function ChangeAnswersVisibility(show_answers) {
             if (show_answers == 'show') {
-                showAnswerLink.toggleClass('pgf-hidden', true);
-                hideAnswerLink.toggleClass('pgf-hidden', false);
+                showAnswerLink.toggleClass('active', true);
+                hideAnswerLink.toggleClass('active', false);
                 jQuery('.pgf-answer', answers).toggleClass('pgf-hidden', false);
                 jQuery('.pgf-answer-show', answers).toggleClass('pgf-hidden', true);
             }
             else {
-                showAnswerLink.toggleClass('pgf-hidden', false);
-                hideAnswerLink.toggleClass('pgf-hidden', true);
+                showAnswerLink.toggleClass('active', false);
+                hideAnswerLink.toggleClass('active', true);
                 jQuery('.pgf-answer', answers).toggleClass('pgf-hidden', true);
                 jQuery('.pgf-answer-show', answers).toggleClass('pgf-hidden', false);
             }
@@ -119,16 +106,23 @@
 
 {% endblock %}
 
+{% block head_navigation_additions %}
+<ul class="nav nav-pills pgf-show-hide-answers">
+  <li class="active pgf-hide-answers"><a href="#">скрыть ответы</a></li>
+  <li class="pgf-show-answers"><a href="#">показать ответы</a></li>
+</ul>
+
+{% endblock %}
+
 {% block content %}
 
 <div id="category-content" itemscope itemtype="http://schema.org/ItemList">
 
-  <div class="category-header">
-    <h2 itemprop="headline">
-      {{ category.caption }} <span class="slice">(с {{ riddles_from }} по {{ riddles_to }})</span>
-    </h2>
-    <div itemprop="description"><p>{{ category.description }}</p></div>
-  </div>
+  <h3 itemprop="headline">
+    {{ category.caption }} <small>(с {{ riddles_from }} по {{ riddles_to }})</small>
+  </h3>
+
+  <p itemprop="description">{{ category.description }}</p>
 
   <meta itemprop="url" content="{{ url('riddles:', category.url, 1) }}" />
   <meta itemprop="about" content="{{ category.caption }}" />
@@ -144,7 +138,7 @@
     <div itemscope itemtype="http://schema.org/CreativeWork" itemprop="itemListElement" >
       <h3 class="riddle-link">
         <a itemprop="url"
-           href="{{ url('riddles:', category.url, page_number) }}#riddle-{{ riddle.id }}" 
+           href="{{ url('riddles:', category.url, page_number) }}#riddle-{{ riddle.id }}"
            id="riddle-{{ riddle.id }}"
            rel="bookmark">
           загадка №{{ loop.index + offset}}
@@ -156,9 +150,9 @@
       <div class="riddle">
         <dd class="text-body" itemprop="description">{{ riddle.text|endl2br }}</dd>
         <span class="answer" >
-          <span class="answer-caption">Ответ:</span> 
+          <span class="answer-caption">Ответ:</span>
           <span class="pgf-answer-wrapper">
-            <dt itemprop="about" class="pgf-answer">{{ riddle.answer }}</dt> 
+            <dt itemprop="about" class="pgf-answer">{{ riddle.answer }}</dt>
             <a href="#" class="pgf-answer-show pgf-hidden">ответ на загадку</a>
           </span>
         </span>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" dir="ltr">
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />    
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="google-site-verification" content="NBSTfMiGxTWpCR9u63aaXfStsYcmbF4KKvQ4GZvsNk8"/>
     <meta name='yandex-verification' content='74f48284671a60d9' />
     <meta name="y_key" content="3f547433fdae8359" />
@@ -13,9 +13,13 @@
     <title>{% block title%}Загадки для детей{% endblock %}</title>
 
     <link rel="stylesheet" type="text/css" href="{{ LESS_CSS_URL }}main.css" />
+    <link rel="stylesheet" type="text/css" href="{{ LESS_CSS_URL }}javascript.css" />
 
-    <script type="text/javascript" src="{{ STATIC_URL }}plugins/jquery/jquery-1.5.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}plugins/jquery/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}plugins/jquery/jquery.cookie.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" />
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
     {% block head %}{% endblock%}
 
@@ -34,48 +38,45 @@
       VK.init({apiId: 2399596, onlyWidgets: true});
     </script>
   </head>
-  
-  <body>
 
-    <div id="top-line">
-      <a href="/">[zagadki.org]</a>
+  <body style="padding-top: 50px;">
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Детские загадки обо всём на свете</a>
+          {% block head_navigation_additions %} {% endblock %}
+        </div>
+      </div>
     </div>
 
-    <div id="body-content">
-      
-      <header>
-        <h1>
-          <img src="{{ STATIC_URL}}logo.png" alt="книга загадок и ответов на загадки"/>
-          Детские загадки обо всём на свете
-        </h1>
-      </header>
-      
-      {% block body_content %}
-      <div class="content">
+    <div class="container">
 
-        <div id="category-menu">
-          <nav id="category-menu-wrapper">
-            <h2>Категории</h2>
-            <ul>
+      <div class="row">
 
-              {% for category in categories %}
-              {% if category.url != 'other' %}
-              <li>
-                <a href="{{ url('riddles:', category.url, 1) }}">{{ category.name }}</a>
-              </li>
-              {% endif %}
-              {% endfor %}
+        <div class="span2 affix">
 
-              {% for category in categories %}
-              {% if category.url == 'other' %}
-              <li class="other">
-                <a href="{{ url('riddles:', category.url, 1) }}">{{ category.name }}</a>
-              </li>
-              {% endif %}
-              {% endfor %}
-            </ul>
-          </nav>
-          <br/>
+          <ul class="nav nav-list well">
+            <li class="nav-header">Категории</li>
+
+            {% for category in categories %}
+            {% if category.url != 'other' %}
+            <li>
+              <a href="{{ url('riddles:', category.url, 1) }}">{{ category.name }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="divider"></li>
+            {% for category in categories %}
+            {% if category.url == 'other' %}
+            <li class="other">
+              <a href="{{ url('riddles:', category.url, 1) }}">{{ category.name }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+
           <div id="buttons-wrapper">
             <div class="g-plusone" data-annotation="none" data-href="http://zagadki.org"></div>
             <div id="vk_like" style="margin-bottom: 3px;"></div>
@@ -86,33 +87,34 @@
             <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="http://zagadki.org/" send="false" layout="button_count" width="130" show_faces="true" font=""></fb:like>
           </div>
         </div>
-        
-        {% block content %}
-        {% endblock %}
 
-        <footer>
-          <!-- begin of Top100 logo -->
-          <a href="http://top100.rambler.ru/home?id=1877122" target="_blank">
-            <img src="http://top100-images.rambler.ru/top100/w2.gif" alt="Rambler's Top100" width="88" height="31" border="0" /></a>
-          <!-- end of Top100 logo -->
-
-          <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-
-          <script type="text/javascript">
-            try {
-            var pageTracker = _gat._getTracker("UA-10915391-1");
-            pageTracker._trackPageview();
-            } catch(err) {}</script>
-        </footer>
+        <div class="span10 offset2">
+          {% block content %}
+          {% endblock %}
+        </div>
 
       </div>
 
-      <div class="footer"></div>
-      {% endblock %}
-
     </div>
+
+    <footer>
+
+      <!-- begin of Top100 logo -->
+      <a href="http://top100.rambler.ru/home?id=1877122" target="_blank">
+        <img src="http://top100-images.rambler.ru/top100/w2.gif" alt="Rambler's Top100" width="88" height="31" border="0" /></a>
+      <!-- end of Top100 logo -->
+
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+
+      <script type="text/javascript">
+        try {
+        var pageTracker = _gat._getTracker("UA-10915391-1");
+        pageTracker._trackPageview();
+        } catch(err) {}</script>
+    </footer>
+
   </body>
 </html>

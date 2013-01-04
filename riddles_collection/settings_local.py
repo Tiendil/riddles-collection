@@ -1,7 +1,10 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
-DEBUG = True
-#DEBUG = False
+import sys
+
+TESTS_RUNNING = 'test' in sys.argv or 'testserver' in sys.argv
+
+DEBUG = 'runserver' in sys.argv
 
 DATABASES = {
     'default': {
@@ -14,3 +17,18 @@ DATABASES = {
     }
 }
 
+
+if TESTS_RUNNING:
+    SOUTH_TESTS_MIGRATE=False
+    SKIP_SOUTH_TESTS=True
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'the_tale.sqlite',
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': '',
+            }
+        }

@@ -1,7 +1,14 @@
+# coding: utf-8
+
 import os
 import sys
+from dext.utils.meta_config import MetaConfig
+
+TESTS_RUNNING = 'test' in sys.argv or 'testserver' in sys.argv
 
 PROJECT_DIR = os.path.dirname(__file__)
+
+meta_config = MetaConfig(config_path=os.path.join(PROJECT_DIR, 'meta_config.json'))
 
 #TODO: calculate how many times this module has imported
 sys.path.append(os.path.join(PROJECT_DIR, '../'))
@@ -19,34 +26,52 @@ DATABASES = {
     }
 }
 
-#TODO: UTC
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'UTC'
 
 LANGUAGE_CODE = 'ru'
 
 SITE_ID = 1
+SITE_URL = 'zagadki.org'
+
+X_FRAME_OPTIONS = 'DENY'
+
+##############################
+# I18N
+##############################
 
 USE_I18N = True
 USE_L10N = True
 
-# MEDIA_ROOT = ''
-# MEDIA_URL = ''
+##############################
+# static content settings
+##############################
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = ( os.path.join(PROJECT_DIR, 'static'), )
+STATIC_URL = '/static/%s/' % meta_config.static_data_version
+STATIC_DIR = os.path.join(PROJECT_DIR, 'static')
 
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
-LESS_CSS_URL = '/less/'
+DCONT_URL = '/dcont/'
+DCONT_DIR = os.path.join(PROJECT_DIR, 'dcont')
+
+LESS_CSS_URL = STATIC_URL + 'less/'
 LESS_FILES_DIR = os.path.join(PROJECT_DIR, 'less')
 LESS_DEST_DIR = os.path.join(PROJECT_DIR, 'static', 'css')
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
 SECRET_KEY = '2oxoy51-(z0mhjk^ow=7_hy92o@k!pv(td3to(pg@nd9)d89_t'
+
+################################
+# Mail settings
+################################
+
+SERVER_EMAIL = 'a.eletsky@gmail.com'
+ADMINS = (('Tiendil', 'a.eletsky@gmail.com'), )
+
+EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+
+################################
+# Other settings
+################################
 
 APPEND_SLASH = True
 
@@ -63,7 +88,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.contrib.messages.context_processors.messages',
-    'django_next.less.context_processors.less',
+    'dext.less.context_processors.less',
     'utils.context_processors.categories'
     )
 
@@ -75,7 +100,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'riddles_collection.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
@@ -88,23 +113,66 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
-    'django.contrib.staticfiles', # TODO: remove if not in DEBUG mode
 
     'utils',
+
+    'portal',
+
     'riddles',
 
     'south',
 
-    'django_next.less'
+    'dext.less'
 )
-
 
 try:
     from settings_local import *
 except:
     pass
 
-TEMPLATE_DEBUG = DEBUG
+if 'TEMPLATE_DEBUG' not in globals():
+    TEMPLATE_DEBUG = DEBUG
 
 if not DEBUG:
     LESS_CSS_URL = '%scss/' % STATIC_URL
+
+############################
+# LOGGING
+############################
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '[%(levelname)s %(asctime)s %(module)s %(process)d] %(message)s'
+        },
+        'simple': {
+            'format': '[%(levelname)s] %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+            },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+            }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    } if not TESTS_RUNNING else {}
+}
