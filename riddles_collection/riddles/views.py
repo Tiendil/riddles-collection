@@ -40,6 +40,7 @@ class RiddlesResource(BaseResource):
 
         return self.template('riddles/index.html',
                              {'riddles': riddles,
+                              'show_answers': self.request.COOKIES.get('show_answers', 'show'),
                               'offset': offset,
                               'page_number': self.page,
                               'pages_count': pages_count,
