@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-
-{% block page_keywords %}{{ super() }} {{category.caption}} {% endblock %}
+{% extends "riddles/base.html" %}
+{% import "riddles/macros.html" as riddles_macros with context %}
 
 {% block page_description %}
 
@@ -53,65 +52,6 @@
 <link rel="next" href="{{ url('riddles:', category.url, page_number+1) }}" />
 {% endif %}
 
-<script>
-    jQuery(document).ready(function(){
-
-        var showAnswerLink = jQuery('.pgf-show-answers');
-        var hideAnswerLink = jQuery('.pgf-hide-answers');
-
-        var answers = jQuery('.pgf-answer-wrapper');
-
-        function ChangeAnswersVisibility(show_answers) {
-            if (show_answers == 'show') {
-                showAnswerLink.toggleClass('active', true);
-                hideAnswerLink.toggleClass('active', false);
-                jQuery('.pgf-answer', answers).toggleClass('pgf-hidden', false);
-                jQuery('.pgf-answer-show', answers).toggleClass('pgf-hidden', true);
-            }
-            else {
-                showAnswerLink.toggleClass('active', false);
-                hideAnswerLink.toggleClass('active', true);
-                jQuery('.pgf-answer', answers).toggleClass('pgf-hidden', true);
-                jQuery('.pgf-answer-show', answers).toggleClass('pgf-hidden', false);
-            }
-        }
-
-        var showAnswerState = jQuery.cookie('show_answers');
-        if (!showAnswerState) {
-            showAnswerState = 'show';
-        }
-
-        ChangeAnswersVisibility(showAnswerState);
-
-        showAnswerLink.click(function(e){
-            ChangeAnswersVisibility('show');
-            jQuery.cookie('show_answers', 'show', { path: '/' });
-            e.preventDefault();
-        });
-
-        hideAnswerLink.click(function(e){
-            ChangeAnswersVisibility('hide');
-            jQuery.cookie('show_answers', 'hide', { path: '/' });
-            e.preventDefault();
-        });
-
-        answers.click(function(e){
-            var el = jQuery(this);
-
-            jQuery('.pgf-answer', el).toggleClass('pgf-hidden');
-            jQuery('.pgf-answer-show', el).toggleClass('pgf-hidden');
-        });
-    });
-</script>
-
-{% endblock %}
-
-{% block head_navigation_additions %}
-<ul class="nav nav-pills pgf-show-hide-answers">
-  <li class="{% if show_answers=='hide'%}active{% endif %} pgf-hide-answers"><a href="#">скрыть ответы</a></li>
-  <li class="{% if show_answers=='show'%}active{% endif %} pgf-show-answers"><a href="#">показать ответы</a></li>
-</ul>
-
 {% endblock %}
 
 {% block content %}
@@ -133,34 +73,8 @@
   {{ paginator(page_number, pages_count, "top") }}
 
   <dl class="riddles-list">
-
     {% for riddle in riddles %}
-
-    <div itemscope itemtype="http://schema.org/CreativeWork" itemprop="itemListElement" class="well well-small">
-        <div class="pull-left" style="width: 30px;">
-          <a itemprop="url"
-             href="{{ url('riddles:', category.url, page_number) }}#riddle-{{ riddle.id }}"
-             id="riddle-{{ riddle.id }}"
-             rel="bookmark"
-             style="margin-left: 10px;">
-            #{{ loop.index + offset}}
-          </a>
-        </div>
-
-        <meta itemprop="genre" content="загадки" />
-        <meta itemprop="isFamilyFriendly" content="True" />
-        <meta itemprop="keywords" content="загадка, {{ riddle.answer }}" />
-
-        <dd class="text-body" itemprop="description" style="margin-left: 50px;">{{ riddle.text|endl2br }}</dd>
-        <div class="pgf-answer-wrapper" style="margin-top: 5px; margin-left:50px;">
-          <dt itemprop="about" class="{% if show_answers=='hide'%}pgf-hidden{% endif %} pgf-answer">
-            <a href="javascript: return;" style="color: black;">{{ riddle.answer }}</a>
-          </dt>
-          <a href="javascript: return;" class="{% if show_answers=='show'%}pgf-hidden{% endif %} pgf-answer-show" style="border-bottom: 1px dashed;">ответ</a>
-        </div>
-
-    </div>
-
+    {{ riddles_macros.riddle_item(loop.index + offset, riddle) }}
     {% endfor %}
   </dl>
 

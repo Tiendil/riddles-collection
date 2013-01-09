@@ -1,7 +1,10 @@
-{% extends "base.html" %}
+{% extends "riddles/base.html" %}
+{% import "riddles/macros.html" as riddles_macros with context %}
+{% block page_description %}загадка {{riddle.id}} из раздела «{{category.caption}}»{% endblock %}
+
+{% block title%}загадка {{riddle.id}} | {{ category.caption }} | {{ super() }}{% endblock %}
+
 
 {% block content %}
-
-YES
-
+{{ riddles_macros.riddle_item(riddle.id, riddle) }}
 {% endblock %}

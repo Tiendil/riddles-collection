@@ -6,9 +6,10 @@ from .models import Riddle, Category
 
 class RiddlesResource(BaseResource):
 
-    def initialize(self, category_url=None, page=None):
+    def initialize(self, category_url=None, riddle_id=None, page=None):
         super(RiddlesResource, self).initialize()
         self.category_url = category_url
+        self.riddle_id = riddle_id
         self.page = int(page) if page else None
 
     @property
@@ -22,7 +23,16 @@ class RiddlesResource(BaseResource):
 
         return self._category
 
-    @handler('#category_url', '#page', '', method='get')
+    @property
+    def riddle(self):
+        if not hasattr(self, '_riddle'):
+            try:
+                self._riddle = Riddle.objects.get(id=self.riddle_id)
+            except Riddle.DoesNotExist:
+                self._riddle = None
+        return self._riddle
+
+    @handler('#category_url', '#page', name='', method='get')
     def index(self):
 
         RIDDLES_ON_PAGE = 50
@@ -49,3 +59,10 @@ class RiddlesResource(BaseResource):
                               'riddles_from': (self.page - 1) * RIDDLES_ON_PAGE + 1,
                               'riddles_to': (self.page - 1) * RIDDLES_ON_PAGE + len(riddles),
                               'total_count': total_count} )
+
+    @handler('riddle', '#riddle_id', name='show', method='get')
+    def show(self):
+        return self.template('riddles/show.html',
+                             {'riddle': self.riddle,
+                              'category': self.riddle.category,
+                              'show_answers': self.request.COOKIES.get('show_answers', 'show') })

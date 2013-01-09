@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block page_keywords %}{{ super() }} {{category.caption}} {% endblock %}
+
+{% block head %}
+
+{{ super() }}
+
+<script>
+    jQuery(document).ready(function(){
+
+        var showAnswerLink = jQuery('.pgf-show-answers');
+        var hideAnswerLink = jQuery('.pgf-hide-answers');
+
+        var answers = jQuery('.pgf-answer-wrapper');
+
+        function ChangeAnswersVisibility(show_answers) {
+            if (show_answers == 'show') {
+                showAnswerLink.toggleClass('active', true);
+                hideAnswerLink.toggleClass('active', false);
+                jQuery('.pgf-answer', answers).toggleClass('pgf-hidden', false);
+                jQuery('.pgf-answer-show', answers).toggleClass('pgf-hidden', true);
+            }
+            else {
+                showAnswerLink.toggleClass('active', false);
+                hideAnswerLink.toggleClass('active', true);
+                jQuery('.pgf-answer', answers).toggleClass('pgf-hidden', true);
+                jQuery('.pgf-answer-show', answers).toggleClass('pgf-hidden', false);
+            }
+        }
+
+        var showAnswerState = jQuery.cookie('show_answers');
+        if (!showAnswerState) {
+            showAnswerState = 'show';
+        }
+
+        ChangeAnswersVisibility(showAnswerState);
+
+        showAnswerLink.click(function(e){
+            ChangeAnswersVisibility('show');
+            jQuery.cookie('show_answers', 'show', { path: '/' });
+            e.preventDefault();
+        });
+
+        hideAnswerLink.click(function(e){
+            ChangeAnswersVisibility('hide');
+            jQuery.cookie('show_answers', 'hide', { path: '/' });
+            e.preventDefault();
+        });
+
+        answers.click(function(e){
+            var el = jQuery(this);
+
+            jQuery('.pgf-answer', el).toggleClass('pgf-hidden');
+            jQuery('.pgf-answer-show', el).toggleClass('pgf-hidden');
+        });
+    });
+</script>
+
+{% endblock %}
+
+{% block head_navigation_additions %}
+<ul class="nav nav-pills pgf-show-hide-answers">
+  <li class="{% if show_answers=='hide'%}active{% endif %} pgf-hide-answers"><a href="#">скрыть ответы</a></li>
+  <li class="{% if show_answers=='show'%}active{% endif %} pgf-show-answers"><a href="#">показать ответы</a></li>
+</ul>
+{% endblock %}
