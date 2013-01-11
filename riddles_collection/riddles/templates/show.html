@@ -6,5 +6,6 @@
 
 
 {% block content %}
+<h3>Загадка из раздела «{{ category.caption }}»</h3>
 {{ riddles_macros.riddle_item(riddle.id, riddle) }}
 {% endblock %}
