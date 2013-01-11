@@ -56,7 +56,7 @@
 
 {% block content %}
 
-<div id="category-content" itemscope itemtype="http://schema.org/ItemList">
+<div itemscope itemtype="http://schema.org/ItemList">
 
   <h3 itemprop="headline">
     {{ category.caption }} <small>(с {{ riddles_from }} по {{ riddles_to }})</small>
@@ -72,7 +72,7 @@
 
   {{ paginator(page_number, pages_count, "top") }}
 
-  <dl class="riddles-list">
+  <dl>
     {% for riddle in riddles %}
     {{ riddles_macros.riddle_item(loop.index + offset, riddle, in_list=true) }}
     {% endfor %}
