@@ -74,7 +74,7 @@
 
   <dl class="riddles-list">
     {% for riddle in riddles %}
-    {{ riddles_macros.riddle_item(loop.index + offset, riddle) }}
+    {{ riddles_macros.riddle_item(loop.index + offset, riddle, in_list=true) }}
     {% endfor %}
   </dl>
 

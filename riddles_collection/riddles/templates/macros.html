@@ -1,7 +1,7 @@
 
-{% macro riddle_item(index, riddle) %}
+{% macro riddle_item(index, riddle, in_list=false) %}
 
-<div itemscope itemtype="http://schema.org/CreativeWork" itemprop="itemListElement" class="well well-small">
+<div itemscope itemtype="http://schema.org/CreativeWork" {% if in_list %}itemprop="itemListElement"{% endif %} class="well well-small">
   <div class="pull-left" style="width: 60px; margin-left: -10px; text-align: center;">
     <a itemprop="url"
        href="{{ url('riddles:show', riddle.id) }}"
@@ -16,7 +16,7 @@
   <meta itemprop="isFamilyFriendly" content="True" />
   <meta itemprop="keywords" content="загадка, {{ riddle.answer }}" />
 
-  <dd class="text-body" itemprop="description" style="margin-left: 50px;">{{ riddle.text|endl2br }}</dd>
+  <dd class="text-body" itemprop="text" style="margin-left: 50px;">{{ riddle.text|endl2br }}</dd>
   <div class="pgf-answer-wrapper" style="margin-top: 5px; margin-left:50px;">
     <dt itemprop="about" class="{% if show_answers=='hide'%}pgf-hidden{% endif %} pgf-answer">
       <a href="javascript: return;" style="color: black;">{{ riddle.answer }}</a>
