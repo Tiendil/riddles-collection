@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru" dir="ltr">
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />    
-    <meta name="google-site-verification" content="NBSTfMiGxTWpCR9u63aaXfStsYcmbF4KKvQ4GZvsNk8"/>
+{% extends "base.html" %}
 
-    <title>Извините, страница не найдена</title>
+{% block page_description %} {% endblock %}
+{% block title%} Страница не найдена{% endblock %}
 
-  </head>
-  
-  <body>
+{% block content %}
 
-    <h1>Извините, страница не найдена</h1>
+<h2 class="alert alert-error">Извините, страница не найдена</h2>
 
-  </body>
-</html>
-
-
+{% endblock %}
