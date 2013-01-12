@@ -1,11 +1,17 @@
 {% extends "riddles/base.html" %}
 {% import "riddles/macros.html" as riddles_macros with context %}
-{% block page_description %}загадка {{riddle.id}} из раздела «{{category.caption}}»{% endblock %}
+{% block page_description %}{{riddle.text}}{% endblock %}
 
 {% block title%}загадка {{riddle.id}} | {{ category.caption }} | {{ super() }}{% endblock %}
 
 
 {% block content %}
-<h3>Загадка из раздела «{{ category.caption }}»</h3>
+
+<ul class="breadcrumb">
+  <li><a href="/">Загадки</a> <span class="divider">/</span></li>
+  <li><a href="{{ url('riddles:', category.url, 1) }}">{{ category.caption }}</a> <span class="divider">/</span></li>
+  <li class="active">загадка №{{riddle.id}}</li>
+</ul>
+
 {{ riddles_macros.riddle_item(riddle.id, riddle) }}
 {% endblock %}

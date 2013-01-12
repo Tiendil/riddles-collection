@@ -1,4 +1,32 @@
 
+
+{% macro addthis(title, description, url=none) %}
+
+{% if url is none %}
+{% set url = resource.request.build_absolute_uri()%}
+{% endif %}
+
+  <div class="addthis_toolbox addthis_default_style pull-right"
+       addthis:ui_language="ru"
+       addthis:title="{{title}}"
+       addthis:description="{{description}}"
+       addthis:services_exclude="print"
+       addthis:url="{{url}}"
+
+       addthis:data_track_addressbar="false"
+       addthis:data_track_clickback="false"
+       addthis:track_addressbar="false"
+       addthis:track_clickback="false"
+
+       {% if settings.GA_CODE %}
+       addthis:ga_property="{{settings.GA_CODE}}"
+       addthis:ga_social="true"
+       {% endif %}
+       >
+    <a class="addthis_button" style="border-bottom: 1px dashed;">поделиться</a>
+  </div>
+{% endmacro %}
+
 {% macro riddle_item(index, riddle, in_list=false) %}
 
 <div itemscope itemtype="http://schema.org/CreativeWork" {% if in_list %}itemprop="itemListElement"{% endif %} class="well well-small">
@@ -11,6 +39,11 @@
       #{% if index is not none%}{{ index}}{% else %}ссылка{% endif %}
     </a>
   </div>
+
+  {% set riddle_url = 'http://' + settings.SITE_URL + url('riddles:show', riddle.id) %}
+  {% set title = "«%s» №%d" % (category.caption, riddle.id) %}
+  {% set description = riddle.text %}
+  {{ addthis(title=title, description=description, url=riddle_url) }}
 
   <meta itemprop="genre" content="загадки" />
   <meta itemprop="isFamilyFriendly" content="True" />

@@ -60,6 +60,8 @@ LESS_DEST_DIR = os.path.join(PROJECT_DIR, 'static', 'css')
 
 SECRET_KEY = '2oxoy51-(z0mhjk^ow=7_hy92o@k!pv(td3to(pg@nd9)d89_t'
 
+GA_CODE = 'UA-10915391-1'
+
 ################################
 # Mail settings
 ################################
