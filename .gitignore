@@ -1,3 +1,4 @@
 *~
 *.pyc
 dcont
+settings_local.py
