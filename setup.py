@@ -3,8 +3,8 @@ import setuptools
 
 setuptools.setup(
     name = 'Riddles',
-    version = '0.1.3',
-    provides=['Riddles'],
+    version = '0.1.4',
+    provides=['riddles_collection'],
     author = 'Aleksey Yeletsky',
     author_email = 'a.eletsky@gmail.com',
     packages = setuptools.find_packages(),
