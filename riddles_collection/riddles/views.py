@@ -50,7 +50,7 @@ class RiddlesResource(BaseResource):
 
         return self.template('riddles/index.html',
                              {'riddles': riddles,
-                              'show_answers': self.request.COOKIES.get('show_answers', 'show'),
+                              'show_answers': self.request.COOKIES.get('show_answers', 'hide'),
                               'offset': offset,
                               'page_number': self.page,
                               'pages_count': pages_count,
@@ -65,4 +65,4 @@ class RiddlesResource(BaseResource):
         return self.template('riddles/show.html',
                              {'riddle': self.riddle,
                               'category': self.riddle.category,
-                              'show_answers': self.request.COOKIES.get('show_answers', 'show') })
+                              'show_answers': self.request.COOKIES.get('show_answers', 'hide') })

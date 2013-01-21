@@ -82,9 +82,11 @@
             <div class="g-plusone" data-annotation="buble" data-href="http://zagadki.org"></div>
             <div id="vk_like" style="margin-bottom: 3px;"></div>
             <script type="text/javascript">
-              VK.Widgets.Like("vk_like", {type: "mini"});
+              VK.Widgets.Like("vk_like", {type: "mini",
+                                          pageUrl: "http://{{settings.SITE_URL}}"});
             </script>
-            <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="ru"></a>
+
+            <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="http://zagadki.org" data-lang="ru"></a>
             <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="http://zagadki.org/" send="false" layout="button_count" width="130" show_faces="true" font=""></fb:like>
           </div>
         </div>

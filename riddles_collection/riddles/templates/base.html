@@ -29,10 +29,7 @@
             }
         }
 
-        var showAnswerState = jQuery.cookie('show_answers');
-        if (!showAnswerState) {
-            showAnswerState = 'show';
-        }
+        showAnswerState = '{{show_answers}}';
 
         ChangeAnswersVisibility(showAnswerState);
 

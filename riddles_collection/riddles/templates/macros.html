@@ -8,22 +8,24 @@
 
   <div class="addthis_toolbox addthis_default_style pull-right"
        addthis:ui_language="ru"
-       addthis:title="{{title}}"
-       addthis:description="{{description}}"
        addthis:services_exclude="print"
-       addthis:url="{{url}}"
-
-       addthis:data_track_addressbar="false"
-       addthis:data_track_clickback="false"
-       addthis:track_addressbar="false"
-       addthis:track_clickback="false"
 
        {% if settings.GA_CODE %}
        addthis:ga_property="{{settings.GA_CODE}}"
        addthis:ga_social="true"
        {% endif %}
        >
-    <a class="addthis_button" style="border-bottom: 1px dashed;">поделиться</a>
+    <a class="addthis_button"
+       style="border-bottom: 1px dashed;"
+       addthis:title="{{title}}"
+       addthis:description="{{description}}"
+       addthis:url="{{url}}"
+       addthis:data_track_addressbar="false"
+       addthis:data_track_clickback="false"
+       addthis:track_addressbar="false"
+       addthis:track_clickback="false">
+       поделиться
+    </a>
   </div>
 {% endmacro %}
 
