@@ -52,9 +52,9 @@
   <dd class="text-body" itemprop="text" style="margin-left: 50px;">{{ riddle.text|endl2br }}</dd>
   <div class="pgf-answer-wrapper" style="margin-top: 5px; margin-left:50px;">
     <dt itemprop="about" class="{% if show_answers=='hide'%}pgf-hidden{% endif %} pgf-answer">
-      <a href="javascript: return false;" style="color: black;">{{ riddle.answer }}</a>
+      <a href="#" onclick="return false" style="color: black;">{{ riddle.answer }}</a>
     </dt>
-    <a href="javascript: return false;" class="{% if show_answers=='show'%}pgf-hidden{% endif %} pgf-answer-show" style="border-bottom: 1px dashed;">ответ</a>
+    <a href="#" onclick="return false" class="{% if show_answers=='show'%}pgf-hidden{% endif %} pgf-answer-show" style="border-bottom: 1px dashed;">ответ</a>
   </div>
 
 </div>
