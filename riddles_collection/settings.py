@@ -8,7 +8,8 @@ TESTS_RUNNING = 'test' in sys.argv or 'testserver' in sys.argv
 
 PROJECT_DIR = os.path.dirname(__file__)
 
-meta_config = MetaConfig(config_path=os.path.join(PROJECT_DIR, 'meta_config.json'))
+META_CONFIG_FILE = os.path.join(PROJECT_DIR, 'meta_config.json')
+meta_config = MetaConfig(config_path=META_CONFIG_FILE)
 
 #TODO: calculate how many times this module has imported
 sys.path.append(os.path.join(PROJECT_DIR, '../'))
