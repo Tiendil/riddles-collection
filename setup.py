@@ -3,7 +3,8 @@ import setuptools
 
 setuptools.setup(
     name = 'Riddles',
-    version = '0.1.2',
+    version = '0.1.3',
+    provides=['Riddles'],
     author = 'Aleksey Yeletsky',
     author_email = 'a.eletsky@gmail.com',
     packages = setuptools.find_packages(),
