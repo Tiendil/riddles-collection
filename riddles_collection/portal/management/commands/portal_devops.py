@@ -11,8 +11,8 @@ from dext.utils.meta_config import MetaConfig
 
 FABFILE = '/home/tie/repos/mine/devops/riddles/deploy.py'
 
-USER = 'tie'
-HOST = '192.168.1.5'
+USER = 'root'
+HOST = 'zagadki.org'
 
 FULL_HOST = "%s@%s" % (USER, HOST)
 
