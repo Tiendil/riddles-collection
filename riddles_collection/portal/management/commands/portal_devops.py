@@ -39,9 +39,9 @@ class Command(BaseCommand):
         command = options['command']
 
         if command == 'setup':
-            subprocess.call(['fab', '-f', FABFILE, 'setup:static_data_version=%s,version=%s,base_url=%s,host=%s' % (meta_config.static_data_version,
-                                                                                                                    meta_config.version,
-                                                                                                                    HOST,
-                                                                                                                    FULL_HOST)])
+            subprocess.call(['fab', '-f', FABFILE, 'setup:static_data_version=%s,version=%s,domain=%s,host=%s' % (meta_config.static_data_version,
+                                                                                                                  meta_config.version,
+                                                                                                                  HOST,
+                                                                                                                  FULL_HOST)])
         else:
             print 'unknown command'
