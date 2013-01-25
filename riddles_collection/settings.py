@@ -67,9 +67,6 @@ GA_CODE = 'UA-10915391-1'
 # Mail settings
 ################################
 
-SERVER_EMAIL = 'a.eletsky@gmail.com'
-ADMINS = (('Tiendil', 'a.eletsky@gmail.com'), )
-
 EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 
 ################################
