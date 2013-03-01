@@ -1,5 +1,7 @@
 # coding: utf-8
 
+from django.core.urlresolvers import reverse
+
 from dext.views import BaseResource, handler
 
 from .models import Riddle, Category
@@ -34,6 +36,9 @@ class RiddlesResource(BaseResource):
 
     @handler('#category_url', '#page', name='', method='get')
     def index(self):
+
+        if self.page is None:
+            return self.redirect(reverse('riddles:', args=[self.category.url, 1]))
 
         RIDDLES_ON_PAGE = 50
         offset = RIDDLES_ON_PAGE * (self.page - 1)
