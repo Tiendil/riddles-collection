@@ -33,8 +33,13 @@
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 
     <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?34"></script>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?79"></script>
+
     <script type="text/javascript">
       VK.init({apiId: 2399596, onlyWidgets: true});
+
+      VK.Widgets.Like("vk_like", {type: "mini", pageUrl: "http://{{settings.SITE_URL}}"});
+      VK.Widgets.Group("vk_groups", {mode: 1, width: "auto", height: "290"}, 39305380);
     </script>
 
     <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-505d67570062215a"></script>
@@ -81,14 +86,11 @@
           <div id="buttons-wrapper">
             <div class="g-plusone" data-annotation="buble" data-href="http://zagadki.org"></div>
             <div id="vk_like" style="margin-bottom: 3px;"></div>
-            <script type="text/javascript">
-              VK.Widgets.Like("vk_like", {type: "mini",
-                                          pageUrl: "http://{{settings.SITE_URL}}"});
-            </script>
-
             <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-url="http://zagadki.org" data-lang="ru"></a>
             <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="http://zagadki.org/" send="false" layout="button_count" width="130" show_faces="true" font=""></fb:like>
           </div>
+          <br/>
+          <div id="vk_groups"></div>
         </div>
 
         <div class="span10">
