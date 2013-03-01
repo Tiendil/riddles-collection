@@ -1,5 +1,7 @@
 # coding: utf-8
 
+from django.core.urlresolvers import reverse
+
 from dext.views import handler
 
 from utils.resources import Resource
@@ -17,6 +19,13 @@ class PortalResource(Resource):
 
     @handler('', method='get')
     def index(self):
+        from riddles.models import Category
+
+        try:
+            category = Category.objects.all().order_by('name')[0]
+            return self.redirect(reverse('riddles:', args=[category.url, 1]))
+        except:
+            pass
         return self.template('portal/index.html', {})
 
     @handler('404', method='get')
