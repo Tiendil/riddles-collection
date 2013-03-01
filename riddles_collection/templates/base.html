@@ -32,16 +32,24 @@
     </script>
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 
-    <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?34"></script>
-    <script type="text/javascript" src="//vk.com/js/api/openapi.js?79"></script>
-
     <script type="text/javascript">
-      VK.init({apiId: 2399596, onlyWidgets: true});
 
-      VK.Widgets.Like("vk_like", {type: "mini", pageUrl: "http://{{settings.SITE_URL}}"});
-      VK.Widgets.Group("vk_groups", {mode: 1, width: "auto", height: "290"}, 39305380);
+      window.vkAsyncInit = function() {
+          VK.init({apiId: 2399596, onlyWidgets: true});
+          VK.Widgets.Like("vk_like", {type: "mini", pageUrl: "http://{{settings.SITE_URL}}"});
+          VK.Widgets.Group("vk_groups", {mode: 1, width: "auto", height: "290"}, 39305380);
+      };
+
+      setTimeout(function() {
+          var el = document.createElement("script");
+          el.type = "text/javascript";
+          el.src = "http://vkontakte.ru/js/api/openapi.js";
+          el.async = true;
+          document.getElementById("vk_api_transport").appendChild(el);
+      }, 0);
+
     </script>
-
+    <div id="vk_api_transport"></div>
     <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-505d67570062215a"></script>
   </head>
 
